@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Allocation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="scheme-toggle">
+        <label for="themeToggle">Dark Mode:</label>
+        <input type="checkbox" id="themeToggle">
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <section class="allocation-section">
+                <h2>Resource Allocation</h2>
+                <form id="allocationForm">
+                    <div id="tasksContainer"></div>
+                    <button type="button" id="addTask">Add Task</button>
+                    <div id="resourcesContainer"></div>
+                    <button type="button" id="addResource">Add Resource</button>
+                    <div class="form-actions">
+                        <button type="submit">Generate Report</button>
+                        <button type="button" id="clearBtn">Clear</button>
+                    </div>
+                </form>
+                <div id="status" class="status"></div>
+                <div id="report" class="report-container"></div>
+            </section>
+
+            <section class="chatbot-section">
+                <h2>Chatbot</h2>
+                <div class="chat-container">
+                    <div id="chatHistory" class="chat-history"></div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Type your message...">
+                        <button id="sendChat">Send</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>const { jsPDF } = window.jspdf;</script>
+    <script src="script.js"></script>
+</body>
+</html>
