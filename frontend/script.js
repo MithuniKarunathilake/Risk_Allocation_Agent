@@ -210,11 +210,7 @@ async function sendChatMessage() {
     if (!message) return;
 
     const history = document.getElementById('chatHistory');
-    history.innerHTML += `
-        <div class="chat-message user-message">
-            <strong>You:</strong> ${message}
-        </div>
-    `;
+    history.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
     input.value = '';
     history.scrollTop = history.scrollHeight;
 
@@ -231,19 +227,39 @@ async function sendChatMessage() {
         }
 
         const result = await response.json();
-        history.innerHTML += `
-            <div class="chat-message bot-message">
-                <strong>Bot:</strong> ${result.response}
-            </div>
-        `;
+
+        // Format the response to handle lists and improve readability
+        const formattedResponse = formatBotResponse(result.response);
+
+        history.innerHTML += `<div class="bot-message"><strong>Bot:</strong> ${formattedResponse}</div>`;
         history.scrollTop = history.scrollHeight;
     } catch (error) {
-        history.innerHTML += `
-            <div class="chat-message" style="color: var(--danger-color);">
-                Error: ${error.message}
-            </div>
-        `;
+        history.innerHTML += `<p class="error-message">Error: ${error.message}</p>`;
         history.scrollTop = history.scrollHeight;
+    }
+}
+
+// Function to format bot responses
+function formatBotResponse(text) {
+    // Check if response has list items (starting with numbers, dashes, asterisks)
+    const hasListItems = /(^|\n)[\d*\-•]+[\.\)]*\s+\w+/m.test(text);
+
+    if (hasListItems) {
+        // Process text to format list items
+        return text
+            // Convert numbered lists (1. Item, 2. Item)
+            .replace(/(^|\n)(\d+[\.\)]+)\s+([^\n]+)/gm, '$1<div class="list-item"><span class="list-number">$2</span> $3</div>')
+            // Convert bullet lists (- Item, * Item, • Item)
+            .replace(/(^|\n)[\-\*•]\s+([^\n]+)/gm, '$1<div class="list-item"><span class="list-bullet">•</span> $2</div>')
+            // Add spacing between paragraphs
+            .replace(/\n\n/g, '<div class="paragraph-break"></div>')
+            // Convert single newlines to <br>
+            .replace(/\n/g, '<br>');
+    } else {
+        // Just add paragraph spacing for regular text
+        return text
+            .replace(/\n\n/g, '<div class="paragraph-break"></div>')
+            .replace(/\n/g, '<br>');
     }
 }
 

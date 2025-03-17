@@ -262,3 +262,37 @@ h1, h2, h3 {
         width: calc(100% - 20px);
     }
 }
+
+/* Bot message styling */
+.bot-message {
+    margin: 8px 0;
+    line-height: 1.6;
+    background-color: rgba(33, 150, 243, 0.05);  /* Light blue background */
+    border-left: 3px solid var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 0 5px 5px 0;
+}
+
+/* List styling */
+.list-item {
+    padding: 3px 0 3px 25px;
+    position: relative;
+    margin: 4px 0;
+}
+
+.list-number, .list-bullet {
+    position: absolute;
+    left: 5px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.paragraph-break {
+    height: 10px;
+}
+
+/* Error message styling */
+.error-message {
+    color: var(--danger-color);
+    font-style: italic;
+}
